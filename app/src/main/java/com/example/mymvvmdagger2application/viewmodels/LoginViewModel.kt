@@ -3,10 +3,15 @@ package com.example.mymvvmdagger2application.viewmodels
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.mymvvmdagger2application.models.LoginRequest
 import com.example.mymvvmdagger2application.repositories.TestRepository
+import com.example.mymvvmdagger2application.services.LoginServiceInterface
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class LoginViewModel @Inject constructor(private var testRepository: TestRepository) : ViewModel() {
+class LoginViewModel @Inject constructor(private var testRepository: TestRepository, private var loginServiceInterface: LoginServiceInterface) : ViewModel() {
     var username: MutableLiveData<String> = MutableLiveData<String>()
     var usernameError: MutableLiveData<String> = MutableLiveData<String>()
     var password: MutableLiveData<String> = MutableLiveData<String>()
@@ -27,7 +32,15 @@ class LoginViewModel @Inject constructor(private var testRepository: TestReposit
             loginViewModel.passwordError.value = "Password is not valid"
             return
         }
+        loginServiceInterface.login(LoginRequest(loginViewModel.username.toString(), loginViewModel.password.toString()))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
 
+            },
+            {
+
+            })
         println("${loginViewModel.username.value} = ${loginViewModel.password.value}")
     }
 }

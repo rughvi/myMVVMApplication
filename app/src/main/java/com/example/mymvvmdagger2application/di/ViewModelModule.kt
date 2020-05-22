@@ -2,9 +2,11 @@ package com.example.mymvvmdagger2application.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.mymvvmdagger2application.services.LoginServiceInterface
 import com.example.mymvvmdagger2application.viewmodels.LoginViewModel
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.multibindings.IntoMap
 
 @Module

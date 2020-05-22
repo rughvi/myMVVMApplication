@@ -4,7 +4,7 @@ import com.example.mymvvmdagger2application.LoginFragment
 import com.example.mymvvmdagger2application.MainActivity
 import dagger.Component
 
-@Component(modules = [ViewModelModule::class])
+@Component(modules = [ViewModelModule::class, ServicesModule::class])
 interface ApplicationComponent {
     fun inject(mainActivity: MainActivity)
     fun inject(loginFragment: LoginFragment)
